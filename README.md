@@ -73,6 +73,13 @@ PYTHONPATH=src python -m unittest discover -s tests -v
 
 La suite cubre snapshots consistentes, verificación de integridad, detección de cambios en el archivo, protección y reemplazo explícito del destino y retención.
 
+Atajos equivalentes:
+
+```bash
+make install
+make test
+```
+
 ## Formato de los artefactos
 
 Cada copia produce dos archivos asociados:
@@ -88,9 +95,10 @@ El SHA-256 detecta corrupción o cambios accidentales; el manifiesto no está fi
 src/restoreguard/       motor y CLI
 tests/                  pruebas automatizadas
 examples/               base sintética de demostración
-.github/workflows/      integración continua
 ```
 
 ## Licencia
 
 MIT. Consulta [LICENSE](LICENSE).
+
+Consulta [SECURITY.md](SECURITY.md) para las recomendaciones de manejo y reporte de vulnerabilidades.
