@@ -61,7 +61,7 @@ El destino debe ser nuevo. Para reemplazar un archivo existente, agrega `--overw
 | `restoreguard backup DB --output DIR --keep-last N` | Crea una copia consistente y aplica retención |
 | `restoreguard verify BACKUP` | Comprueba SHA-256, tamaño e integridad SQLite |
 | `restoreguard restore BACKUP DESTINO [--overwrite]` | Verifica y restaura en una ruta aislada |
-| `restoreguard list --directory DIR` | Lista artefactos con manifiesto válido |
+| `restoreguard list --directory DIR` | Lista artefactos con manifiesto válido, origen, tamaños e integridad registrada |
 
 Cada comando correcto imprime un objeto JSON en stdout. Los errores se escriben en stderr y devuelven un código distinto de cero. La duración de la copia y de cada restauración se mide en la ejecución correspondiente; el proyecto no publica cifras de rendimiento precalculadas.
 

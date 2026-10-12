@@ -121,6 +121,7 @@ def verify_backup(archive_path: str | Path) -> dict[str, Any]:
     return {
         "status": "verified",
         "backup": str(archive),
+        "source_name": manifest["source_name"],
         "created_at": manifest["created_at"],
         "sha256": actual_hash,
         "compressed_size_bytes": actual_size,
@@ -294,9 +295,12 @@ def list_backups(output_dir: str | Path) -> list[dict[str, Any]]:
                 manifest = _load_manifest(archive)
                 entries.append({
                     "backup": str(archive),
+                    "source_name": manifest.get("source_name"),
                     "created_at": manifest.get("created_at"),
                     "compressed_size_bytes": manifest.get("compressed_size_bytes"),
+                    "database_size_bytes": manifest.get("database_size_bytes"),
                     "sha256": manifest.get("sha256"),
+                    "integrity_check": manifest.get("integrity_check"),
                 })
         except (OSError, json.JSONDecodeError, RecoveryError):
             continue
