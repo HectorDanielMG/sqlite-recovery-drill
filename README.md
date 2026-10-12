@@ -7,7 +7,7 @@ Proyecto de portafolio enfocado en continuidad operativa y recuperación de dato
 ## Funciones
 
 - Snapshot coherente de bases SQLite, incluso si la base utiliza WAL.
-- Compresión gzip y manifiesto con SHA-256, tamaño, fecha y duración de la copia.
+- Compresión gzip y manifiesto con SHA-256, tamaño, fecha ISO 8601 con zona horaria y duración de la copia.
 - Verificación de checksum y de integridad SQLite antes de aceptar un artefacto.
 - Ensayo de restauración en otra ruta, con validación y reemplazo atómico del destino.
 - Protección contra sobrescritura accidental; `--overwrite` la hace explícita.

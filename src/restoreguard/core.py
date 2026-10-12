@@ -72,8 +72,18 @@ def _load_manifest(archive: Path) -> dict[str, Any]:
     digest = data.get("sha256")
     if not isinstance(digest, str) or len(digest) != 64 or any(char not in "0123456789abcdef" for char in digest):
         raise RecoveryError("El manifiesto no contiene un SHA-256 válido.")
-    if not isinstance(data.get("created_at"), str) or not data["created_at"]:
+    created_at = data.get("created_at")
+    if not isinstance(created_at, str) or not created_at:
         raise RecoveryError("El manifiesto no contiene una fecha de creación válida.")
+    try:
+        parsed_created_at = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise RecoveryError("La fecha de creación del manifiesto no tiene formato ISO 8601.") from exc
+    if parsed_created_at.tzinfo is None:
+        raise RecoveryError("La fecha de creación del manifiesto debe incluir zona horaria.")
+    source_name = data.get("source_name")
+    if not isinstance(source_name, str) or not source_name or Path(source_name).name != source_name:
+        raise RecoveryError("El manifiesto no contiene un nombre de base de origen válido.")
     for key in ("compressed_size_bytes", "database_size_bytes"):
         if not isinstance(data.get(key), int) or data[key] < 0:
             raise RecoveryError(f"El manifiesto contiene un valor inválido en '{key}'.")
